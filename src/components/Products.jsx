@@ -19,8 +19,8 @@ const ProductsComponent = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Products</h2>
+    <div className="container1">
+      <h2 className="products">Products</h2>
       <div className="products-container">
         {products.map((product) => (
           <div className="product-card" key={product.id}>
