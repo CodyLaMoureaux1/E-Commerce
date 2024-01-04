@@ -26,29 +26,49 @@
   font-family: 'Mountains of Christmas', serif;
   justify-content: space-evenly;
   align-items: center;
-  color: #000000; /* Change the color of the icons */
+  color: #000000; 
  }
 
+ .single-product-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000; 
+  margin-top: 20px ;
+  
+}
 
+.single-product-modal .product-card {
+  width: 300px; 
+  margin: 0 auto; 
+ 
+}
+
+
+ 
  .search-bar{
  vertical-align: middle;
- margin-top: 22npmpx;
+ margin-top: 22px;
  
  }
 
 .links {
   display: flex;
-  gap: 20px; /* Adjust the value to control the space between links */
+  gap: 20px; 
 }
 
 .nav-link {
-  text-decoration: none; /* Remove default underline */
-  color: #333; /* Change link text color */
+  text-decoration: none; 
+  color: #333; 
 }
 
 .icon {
-  margin-right: 5px; /* Adjust the value to control the space between the icon and text */
-  color: #009688; /* Change the color of the icons */
+  margin-right: 5px; 
+  color: #009688; 
 }
 
 .nav-link{

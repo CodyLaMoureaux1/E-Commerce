@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import getAllProducts from "../api";
 import axios from "axios";
-const ProductsComponent = () => {
+import ProductCard from "./ProductCard";
+
+const Products = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -23,17 +24,11 @@ const ProductsComponent = () => {
       <h2 className="products">Products</h2>
       <div className="products-container">
         {products.map((product) => (
-          <div className="product-card" key={product.id}>
-            <img src={product.image} alt={product.title} />
-            <div className="product-details">
-              <h3>{product.title}</h3>
-              <p>${product.price}</p>
-            </div>
-          </div>
+          <ProductCard key={product.id} product={product} showDetailsButton />
         ))}
       </div>
     </div>
   );
 };
 
-export default ProductsComponent;
+export default Products;

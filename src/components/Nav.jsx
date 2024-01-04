@@ -6,7 +6,7 @@ import { IoMdLogIn } from "react-icons/io";
 import { FaHome, FaReact } from "react-icons/fa";
 
 const iconStyle = {
-  verticalAlign: "middle", // Adjust the value as needed
+  verticalAlign: "middle",
   marginRight: "3px",
   color: "#61DBFB",
 };

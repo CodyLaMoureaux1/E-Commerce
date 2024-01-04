@@ -12,4 +12,16 @@ const getAllProducts = async () => {
     }
 };
 
-export default getAllProducts;
+
+const getSingleProduct = async (productId) => {
+    try {
+      const response = await axios.get(`${baseUrl}/${productId}`);
+      return response.data || null;
+    } catch (error) {
+      console.error(`Error fetching product ${productId}:`, error);
+      return null;
+    }
+  };
+  
+
+export default {getAllProducts, getSingleProduct};
