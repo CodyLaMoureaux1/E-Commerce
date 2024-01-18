@@ -1,27 +1,80 @@
+/* Updated styling for Products Container */
 .products-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-evenly;
-    margin-top: 10px;
-    padding-bottom: 30%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px; /* Reduced gap between grid items */
+  justify-content: center;
+  margin-top: 20px;
 }
-  
-  .product-card {
-    border: 1px solid #080808;
-    padding: 10px;
-    border-radius: 5px;
-    width: 200px;
-  }
-  
-  .product-card img {
-    width: 100%;
-    height: auto;
-  }
-  
-  .product-details {
-    text-align: center;
-  }
+
+/* Updated styling for Product Card */
+.product-card {
+  border: 1px solid #ddd;
+  padding: 10px; /* Decreased padding for a smaller size */
+  border-radius: 8px;
+  width: 220px; /* Set a wider fixed width for the card */
+  height: 340px; /* Set a taller fixed height for the card (twice the width for a 2:1 ratio) */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fcfcfc;
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  max-height: 50%; /* Set the maximum height of the image to 50% of the card height */
+  border-radius: 13px; /* Apply border-radius to the image */
+  object-fit: cover; /* Ensure the image covers the entire container */
+  margin-top: 10px;
+}
+
+
+.product-details {
+  text-align: center;
+  flex-grow: 1; /* Allow details to take remaining vertical space */
+  display: flex;
+  flex-direction: column;
+}
+
+.product-details h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.product-details p {
+  font-size: 14px;
+  margin-bottom: 10px;
+  flex-grow: 1; /* Allow details to take remaining vertical space */
+}
+
+.product-details button {
+  margin-top: auto; /* Align button to the bottom */
+  padding: 8px;
+  background-color: #f08804;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.product-details button:hover {
+  background-color: #d97704;
+}
+
+
+
+
+
+
+
+
 
  .mainHeader {
   font-family: 'Mountains of Christmas', serif;
@@ -40,49 +93,61 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   z-index: 1000; 
   margin-top: 80px ;
-  
+  height: 700px;
 }
 
 .search-bar {
   display: flex;
   align-items: center;
-  justify-content: center;
-  
-  
-  
+}
+
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Spread the elements horizontally */
+  padding: 20px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
 }
 
 .search-bar input {
   padding: 10px;
   margin-right: 10px;
-  width: 50%;
+  width: 550px; /* Adjusted width to make it 3x as long */
   border-radius: 10px;
   background: linear-gradient(43deg, #eeebeb 0%, #dbdbdb 46%, #e9e3e3 100%);
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
-  
-  
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.search-bar button {
+.filter-dropdown {
+  display: flex;
+  align-items: center;
+}
+
+.filter-dropdown label {
+  margin-right: 10px;
+}
+
+.filter-dropdown select {
   padding: 10px;
-  background: linear-gradient(43deg, #0a0a0a 0%, #4e4e4e 46%, #757575 100%);
-  color: #fff; /* Set text color */
-  border: none; /* Remove border */
-  border-radius: 4px; /* Add rounded corners */
-  cursor: pointer; /* Add a pointer cursor on hover */
-  
+  border-radius: 10px;
+  background: linear-gradient(43deg, #eeebeb 0%, #dbdbdb 46%, #e9e3e3 100%);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-
-
-.search-bar-container {
-  padding: 20px;
-  
-  
-  
+/* Updated styling for dropdown arrow */
+.filter-dropdown select::after {
+  content: "";
+  border: solid #000;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  margin-left: 5px;
+  transform: rotate(45deg);
 }
-
-
 
 .single-product-modal .product-card {
   width: 300px; 
@@ -132,12 +197,14 @@
   
 }
 
-.products{
+.products {
   text-align: center;
   font-family: 'Montserrat', sans-serif;
-  
-
+  font-size: 24px; /* Adjusted font size */
+  margin-bottom: 20px; /* Added margin for spacing */
+  color: #333; /* Adjusted text color */
 }
+
 
 .mainBody{
   margin: 0;
@@ -179,4 +246,49 @@ body {
   margin-right: 8px;
   display: flex;
   align-items: center;
+}
+
+
+/* Amazon-style navigation bar */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #232f3e; /* Amazon's navigation bar background color */
+  padding: 10px 20px;
+  color: #fff; /* Text color */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Mountains of Christmas', serif;
+  display: flex;
+  align-items: center;
+  color: #fff; /* Logo text color */
+  font-size: 24px;
+}
+
+.links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #fff; /* Link text color */
+  font-size: 18px; /* Larger font size */
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #f08804; /* Hover color */
+}
+
+.icon {
+  margin-right: 5px;
+  color: #f08804; /* Icon color */
 }

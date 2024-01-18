@@ -13,27 +13,27 @@ const iconStyle = {
 
 export default function Nav() {
   return (
-    <nav className="nav flex-container">
-      <h1 className="mainHeader">
-        LaMoureaux{" "}
-        <FaReact style={{ verticalAlign: "middle", color: "#61DBFB" }} />
-      </h1>
+    <nav className="nav">
+      <div className="logo-container">
+        <h1 className="logo">
+          LaMoureaux <FaReact style={iconStyle} />
+        </h1>
+      </div>
 
-      <div className="navigation-menu">
-        <h3 className="links">
-          <a href="/#" className="nav-link">
-            <FaHome className="icon" style={iconStyle} /> Home
-          </a>
-          <a href="/#" className="nav-link">
-            <IoMdLogIn className="icon" style={iconStyle} /> Login
-          </a>
-          <a href="/#" className="nav-link">
-            <IoPersonSharp className="icon" style={iconStyle} /> Account
-          </a>
-          <a href="/#" className="nav-link">
-            <TbShoppingCart className="icon" style={iconStyle} /> Cart
-          </a>
-        </h3>
+      <div className="links">
+        <Link to="/" className="nav-link">
+          Home
+        </Link>
+        <Link to="/login" className="nav-link">
+          Login
+        </Link>
+        <Link to="/account" className="nav-link">
+          Account
+        </Link>
+        <Link to="/cart" className="nav-link">
+          <TbShoppingCart className="icon" style={iconStyle} />
+          Cart
+        </Link>
       </div>
     </nav>
   );
