@@ -18,10 +18,7 @@ export default function Nav() {
         LaMoureaux{" "}
         <FaReact style={{ verticalAlign: "middle", color: "#61DBFB" }} />
       </h1>
-      <div className="search-bar">
-        <input type="text" placeholder="Search for products..." />
-        <button>Search</button>
-      </div>
+
       <div className="navigation-menu">
         <h3 className="links">
           <a href="/#" className="nav-link">

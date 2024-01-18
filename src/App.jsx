@@ -4,12 +4,14 @@ import Products from "../src/components/products";
 import SingleProduct from "./components/SingleProduct";
 import "./App.css";
 import Nav from "./components/Nav";
+import SearchBar from "./components/SearchBar";
 
 const App = () => {
   return (
     <Router>
       <>
         <Nav />
+
         <Routes>
           <Route path="/" element={<Products />} />
           <Route path="/product/:id" element={<SingleProduct />} />
