@@ -22,6 +22,23 @@ const getSingleProduct = async (productId) => {
       return null;
     }
   };
-  
 
-export default {getAllProducts, getSingleProduct};
+  export async function registerUser(userObj) {
+    try {
+      const resp = await fetch('https://fakestoreapi.com/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userObj),
+      });
+  
+      const json = await resp.json();
+      console.log(json); // Assuming your response contains token property
+      return json.token; // Adjust this based on your actual API response structure
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+export default {getAllProducts, getSingleProduct, registerUser};
