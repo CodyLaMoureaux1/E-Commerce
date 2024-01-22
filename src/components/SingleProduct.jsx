@@ -20,19 +20,26 @@ const SingleProduct = () => {
   }, [id]);
 
   return (
-    <div className="product-card">
-      {productDetails ? (
-        <>
-          <img src={productDetails.image} alt={productDetails.title} />
-          <div className="product-details">
-            <h3>{productDetails.title}</h3>
-            <p>${productDetails.price}</p>
-            <p>{productDetails.description}</p>
-          </div>
-        </>
-      ) : (
-        <p>Loading...</p>
-      )}
+    <div className="center-container">
+      <div className="product-card1">
+        {productDetails ? (
+          <>
+            <img src={productDetails.image} alt={productDetails.title} />
+            <div className="product-details">
+              <h3>{productDetails.title}</h3>
+              <p>${productDetails.price}</p>
+              <p>{productDetails.description}</p>
+              <p>Category: {productDetails.category}</p>
+              <p>
+                Rating: {productDetails.rating.rate} (
+                {productDetails.rating.count} reviews)
+              </p>
+            </div>
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
     </div>
   );
 };

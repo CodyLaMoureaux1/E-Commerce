@@ -9,13 +9,10 @@ const Nav = ({ loggedInUser, setLoggedInUser }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Clear the user information from state
     setLoggedInUser(null);
 
-    // Clear the user information from cookies
     cookies.remove("loggedInUser");
 
-    // Redirect to the login page
     navigate("/login");
 
     console.log("Logout successful");

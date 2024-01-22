@@ -23,19 +23,25 @@
 
 
 
+  .center-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+
 .product-card1 {
   border: 1px solid #ddd;
-  padding: 10px;
+  padding: 10px; /* Decreased padding for a smaller size */
   border-radius: 8px;
-  width: 220px;
-  height: 380px;
+  width: 320px; /* Set a wider fixed width for the card */
+  height: 700px; /* Set a taller fixed height for the card (twice the width for a 2:1 ratio) */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #fcfcfc;
   transition: transform 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
-  
-  
 }
 
 .product-card:hover {

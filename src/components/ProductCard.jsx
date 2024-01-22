@@ -19,15 +19,14 @@ const ProductCard = ({ product, inCart, onToggleCart }) => {
         <Link to={`/product/${id}`}>
           <button>See Details</button>
         </Link>
-        {location.pathname === "/" && ( // Only show on the home page
+        {location.pathname === "/" && (
           <button onClick={handleAddToCart}>Add to Cart</button>
         )}
-        {inCart &&
-          location.pathname === "/cart" && ( // Show on the cart page
-            <button onClick={() => onToggleCart(product, false)}>
-              Remove from Cart
-            </button>
-          )}
+        {inCart && location.pathname === "/cart" && (
+          <button onClick={() => onToggleCart(product, false)}>
+            Remove from Cart
+          </button>
+        )}
       </div>
     </div>
   );

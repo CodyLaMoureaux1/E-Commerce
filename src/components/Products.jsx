@@ -95,7 +95,6 @@ const Products = ({ addToCart, loggedInUser, cartItems, removeFromCart }) => {
   const handleToggleCart = (product, addToCartFlag) => {
     if (loggedInUser) {
       if (addToCartFlag) {
-        // Check if the item is already in the cart
         const isAlreadyInCart = cartItems.some(
           (item) => item.id === product.id
         );
