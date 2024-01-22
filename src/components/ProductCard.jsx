@@ -2,12 +2,21 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const ProductCard = ({ product, inCart, onToggleCart }) => {
-  const { id, title, price, image } = product;
+const ProductCard = ({ product, inCart, onToggleCart, updateQuantity }) => {
+  const { id, title, price, image, quantity } = product;
   const location = useLocation();
 
   const handleAddToCart = () => {
     onToggleCart(product, true);
+  };
+
+  const handleRemoveFromCart = () => {
+    onToggleCart(product, false);
+  };
+
+  const handleQuantityChange = (e) => {
+    const newQuantity = parseInt(e.target.value, 10);
+    updateQuantity(newQuantity);
   };
 
   return (
@@ -19,13 +28,24 @@ const ProductCard = ({ product, inCart, onToggleCart }) => {
         <Link to={`/product/${id}`}>
           <button>See Details</button>
         </Link>
-        {location.pathname === "/" && (
-          <button onClick={handleAddToCart}>Add to Cart</button>
+        {location.pathname === "/cart" && (
+          <>
+            <button onClick={handleRemoveFromCart}>Remove from Cart</button>
+            <select
+              value={quantity}
+              onChange={handleQuantityChange}
+              disabled={!inCart}
+            >
+              {[0, 1, 2, 3, 4, 5].map((quantity) => (
+                <option key={quantity} value={quantity}>
+                  {quantity}
+                </option>
+              ))}
+            </select>
+          </>
         )}
-        {inCart && location.pathname === "/cart" && (
-          <button onClick={() => onToggleCart(product, false)}>
-            Remove from Cart
-          </button>
+        {!inCart && location.pathname === "/" && (
+          <button onClick={handleAddToCart}>Add to Cart</button>
         )}
       </div>
     </div>
