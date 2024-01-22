@@ -1,23 +1,50 @@
-// App.js
-
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Products from "../src/components/products";
 import SingleProduct from "./components/SingleProduct";
-import Login from "./components/Login"; // Assuming you have a Login component
+import Login from "./components/Login";
 import "./App.css";
 import Nav from "./components/Nav";
+import Cart from "./components/Cart";
 
 const App = () => {
+  const [cartItems, setCartItems] = useState([]);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  const addToCart = (product) => {
+    setCartItems([...cartItems, product]);
+  };
+
+  const removeFromCart = (productId) => {
+    const updatedCart = cartItems.filter((item) => item.id !== productId);
+    setCartItems(updatedCart);
+  };
+
   return (
     <Router>
       <>
-        <Nav />
-
+        <Nav loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
         <Routes>
-          <Route path="/" element={<Products />} />
+          <Route
+            path="/"
+            element={
+              <Products
+                addToCart={addToCart}
+                loggedInUser={loggedInUser}
+                cartItems={cartItems} // Pass cartItems here
+                removeFromCart={removeFromCart}
+              />
+            }
+          />
           <Route path="/product/:id" element={<SingleProduct />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={<Login setLoggedInUser={setLoggedInUser} />}
+          />
+          <Route
+            path="/cart"
+            element={<Cart cartItems={cartItems} loggedInUser={loggedInUser} />}
+          />
         </Routes>
       </>
     </Router>

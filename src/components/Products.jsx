@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+// Products.jsx
+
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ProductCard from "./ProductCard";
 import SearchBar from "./SearchBar";
 
-const Products = () => {
+const Products = ({ addToCart, loggedInUser, cartItems }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPriceRange, setSelectedPriceRange] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -93,6 +95,16 @@ const Products = () => {
     setFilteredProducts(filtered);
   };
 
+  const handleToggleCart = (product) => {
+    if (loggedInUser) {
+      addToCart(product);
+    } else {
+      console.log(
+        "User is not logged in. Please log in to add items to the cart."
+      );
+    }
+  };
+
   return (
     <div className="container1">
       <h2 className="products">Products</h2>
@@ -107,7 +119,14 @@ const Products = () => {
       />
       <div className="products-container">
         {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} showDetailsButton />
+          <ProductCard
+            key={product.id}
+            product={product}
+            showDetailsButton
+            inCart={cartItems.some((item) => item.id === product.id)}
+            onToggleCart={handleToggleCart}
+            loggedInUser={loggedInUser}
+          />
         ))}
       </div>
     </div>

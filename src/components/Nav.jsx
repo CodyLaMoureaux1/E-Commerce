@@ -1,40 +1,66 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { TbShoppingCart } from "react-icons/tb";
-import { IoPersonSharp } from "react-icons/io5";
-import { IoMdLogIn } from "react-icons/io";
-import { FaHome, FaReact } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
+import { IoMdLogIn, IoMdPerson, IoMdHome } from "react-icons/io";
+import { FaReact } from "react-icons/fa";
 
-const iconStyle = {
-  verticalAlign: "middle",
-  marginRight: "3px",
-  color: "#61DBFB",
-};
+const Nav = ({ loggedInUser, setLoggedInUser }) => {
+  const cookies = new Cookies();
+  const navigate = useNavigate();
 
-export default function Nav() {
+  const handleLogout = () => {
+    // Clear the user information from state
+    setLoggedInUser(null);
+
+    // Clear the user information from cookies
+    cookies.remove("loggedInUser");
+
+    // Redirect to the login page
+    navigate("/login");
+
+    console.log("Logout successful");
+  };
+
   return (
     <nav className="nav">
       <div className="logo-container">
         <h1 className="logo">
-          LaMoureaux <FaReact style={iconStyle} />
+          LaMoureaux{" "}
+          <FaReact
+            style={{
+              verticalAlign: "middle",
+              marginRight: "3px",
+              color: "#61DBFB",
+            }}
+          />
         </h1>
       </div>
 
       <div className="links">
         <Link to="/" className="nav-link">
+          <IoMdHome className="icon" />
           Home
         </Link>
-        <Link to="/login" className="nav-link">
-          Login
-        </Link>
-        <Link to="/account" className="nav-link">
-          Account
-        </Link>
+
+        {loggedInUser ? (
+          <>
+            <span>Hello, {loggedInUser.username}!</span>
+            <button onClick={handleLogout}>Logout</button>
+          </>
+        ) : (
+          <Link to="/login" className="nav-link">
+            <IoMdLogIn className="icon" />
+            Login
+          </Link>
+        )}
+
         <Link to="/cart" className="nav-link">
-          <TbShoppingCart className="icon" style={iconStyle} />
+          <IoMdPerson className="icon" />
           Cart
         </Link>
       </div>
     </nav>
   );
-}
+};
+
+export default Nav;

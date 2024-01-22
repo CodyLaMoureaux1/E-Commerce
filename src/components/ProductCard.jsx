@@ -1,8 +1,16 @@
+// ProductCard.jsx
+
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ProductCard = ({ product, showDetailsButton }) => {
-  const { id, title, price, image } = product;
+const ProductCard = ({
+  product,
+  showDetailsButton,
+  inCart,
+  onToggleCart,
+  loggedInUser,
+}) => {
+  const { id, title, price, image, description, category, rating } = product;
 
   return (
     <div className="product-card" key={id}>
@@ -15,13 +23,17 @@ const ProductCard = ({ product, showDetailsButton }) => {
             <button>See Details</button>
           </Link>
         )}
-        {!showDetailsButton && (
-          /* Additional details hidden on homepage */
+        {loggedInUser && (
+          <button onClick={() => onToggleCart(product)}>
+            {inCart ? "Remove from Cart" : "Add to Cart"}
+          </button>
+        )}
+        {!showDetailsButton && !onToggleCart && (
           <>
-            <p>Description: {product.description}</p>
-            <p>Category: {product.category}</p>
+            <p>Description: {description}</p>
+            <p>Category: {category}</p>
             <p>
-              Rating: {product.rating.rate} ({product.rating.count} reviews)
+              Rating: {rating.rate} ({rating.count} reviews)
             </p>
           </>
         )}

@@ -1,14 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import Cookies from "universal-cookie";
 
-const Login = () => {
+const Login = ({ setLoggedInUser }) => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
 
-  const [loginSuccess, setLoginSuccess] = useState(false); // New state for login success message
+  const [loginSuccess, setLoginSuccess] = useState(false);
   const navigate = useNavigate();
+  const cookies = new Cookies();
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const loggedInUser = cookies.get("loggedInUser");
+      if (loggedInUser && !loginSuccess) {
+        setLoggedInUser(loggedInUser);
+        setLoginSuccess(true);
+      }
+    };
+
+    checkLoginStatus();
+  }, [setLoggedInUser, loginSuccess, cookies]);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,13 +43,17 @@ const Login = () => {
         console.log("JWT:", token);
         console.log("Login successful");
 
-        // Set login success state to true
+        const loggedInUser = {
+          username: formData.username,
+        };
+
+        cookies.set("loggedInUser", loggedInUser, { path: "/", maxAge: 600 });
+        setLoggedInUser(loggedInUser);
         setLoginSuccess(true);
 
-        // Redirect to the home page after a delay
         setTimeout(() => {
           navigate("/");
-        }, 2000); // 2000 milliseconds (2 seconds) delay
+        }, 2000);
       } else {
         console.error("Login failed");
       }
@@ -45,10 +63,10 @@ const Login = () => {
   };
 
   const resetLoginSuccess = () => {
+    cookies.remove("loggedInUser");
     setLoginSuccess(false);
   };
 
-  // Test login information
   const testLogins = [
     { username: "johnd", password: "m38rmF$" },
     { username: "donero", password: "ewedon" },
