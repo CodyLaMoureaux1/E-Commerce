@@ -31,19 +31,30 @@ const App = () => {
               <Products
                 addToCart={addToCart}
                 loggedInUser={loggedInUser}
-                cartItems={cartItems} // Pass cartItems here
+                cartItems={cartItems}
                 removeFromCart={removeFromCart}
               />
             }
           />
-          <Route path="/product/:id" element={<SingleProduct />} />
+          <Route
+            path="/product/:id"
+            element={
+              <SingleProduct cartItems={cartItems} addToCart={addToCart} />
+            }
+          />
           <Route
             path="/login"
             element={<Login setLoggedInUser={setLoggedInUser} />}
           />
           <Route
             path="/cart"
-            element={<Cart cartItems={cartItems} loggedInUser={loggedInUser} />}
+            element={
+              <Cart
+                cartItems={cartItems}
+                loggedInUser={loggedInUser}
+                removeFromCart={removeFromCart}
+              />
+            }
           />
         </Routes>
       </>

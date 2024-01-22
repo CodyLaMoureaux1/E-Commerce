@@ -3,7 +3,6 @@ import ProductCard from "./ProductCard";
 
 const Cart = ({ cartItems, removeFromCart, loggedInUser }) => {
   const handleRemoveFromCart = (productId) => {
-    // Add logic to remove item from cart
     removeFromCart(productId);
   };
 
@@ -21,6 +20,10 @@ const Cart = ({ cartItems, removeFromCart, loggedInUser }) => {
             removeFromCart={removeFromCart}
           />
         ))}
+      </div>
+      <div>
+        {/* Add Checkout button with appropriate logic */}
+        <button>Checkout</button>
       </div>
     </div>
   );

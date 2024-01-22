@@ -13,12 +13,29 @@
   padding: 10px; /* Decreased padding for a smaller size */
   border-radius: 8px;
   width: 220px; /* Set a wider fixed width for the card */
-  height: 340px; /* Set a taller fixed height for the card (twice the width for a 2:1 ratio) */
+  height: 380px; /* Set a taller fixed height for the card (twice the width for a 2:1 ratio) */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #fcfcfc;
   transition: transform 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
+}
+
+
+
+.product-card1 {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+  width: 220px;
+  height: 380px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fcfcfc;
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  
+  
 }
 
 .product-card:hover {
@@ -93,7 +110,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   z-index: 1000; 
   margin-top: 80px ;
-  height: 700px;
+  height: 500px;
 }
 
 .search-bar {
@@ -222,6 +239,7 @@ body {
 .container1{
   margin-left: 200px;
   margin-right: 200px;
+  padding-bottom: 500px;
 }
 
 #root{

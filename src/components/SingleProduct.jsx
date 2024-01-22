@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import api from "../api";
-import ProductCard from "./ProductCard";
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -21,20 +20,16 @@ const SingleProduct = () => {
   }, [id]);
 
   return (
-    <div className="single-product-modal">
+    <div className="product-card">
       {productDetails ? (
-        <ProductCard
-          product={{
-            id: productDetails.id,
-            title: productDetails.title,
-            price: productDetails.price,
-            description: productDetails.description,
-            category: productDetails.category,
-            image: productDetails.image,
-            rating: productDetails.rating,
-          }}
-          showDetailsButton={false}
-        />
+        <>
+          <img src={productDetails.image} alt={productDetails.title} />
+          <div className="product-details">
+            <h3>{productDetails.title}</h3>
+            <p>${productDetails.price}</p>
+            <p>{productDetails.description}</p>
+          </div>
+        </>
       ) : (
         <p>Loading...</p>
       )}

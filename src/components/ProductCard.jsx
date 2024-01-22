@@ -1,20 +1,13 @@
+// ProductCard.js
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-const ProductCard = ({
-  product,
-  showDetailsButton,
-  inCart,
-  onToggleCart,
-  loggedInUser,
-  removeFromCart,
-}) => {
-  const { id, title, price, image, description, category, rating } = product;
+const ProductCard = ({ product, inCart, onToggleCart }) => {
+  const { id, title, price, image } = product;
+  const location = useLocation();
 
-  const handleRemoveFromCart = () => {
-    if (removeFromCart) {
-      removeFromCart(id);
-    }
+  const handleAddToCart = () => {
+    onToggleCart(product, true);
   };
 
   return (
@@ -23,31 +16,18 @@ const ProductCard = ({
       <div className="product-details">
         <h3>{title}</h3>
         <p>${price}</p>
-        {showDetailsButton && (
-          <Link to={`/product/${id}`}>
-            <button>See Details</button>
-          </Link>
+        <Link to={`/product/${id}`}>
+          <button>See Details</button>
+        </Link>
+        {location.pathname === "/" && ( // Only show on the home page
+          <button onClick={handleAddToCart}>Add to Cart</button>
         )}
-
-        {loggedInUser && (
-          <>
-            {inCart ? (
-              <button onClick={handleRemoveFromCart}>Remove from Cart</button>
-            ) : (
-              <button onClick={() => onToggleCart(product)}>Add to Cart</button>
-            )}
-          </>
-        )}
-
-        {!showDetailsButton && !onToggleCart && (
-          <>
-            <p>Description: {description}</p>
-            <p>Category: {category}</p>
-            <p>
-              Rating: {rating.rate} ({rating.count} reviews)
-            </p>
-          </>
-        )}
+        {inCart &&
+          location.pathname === "/cart" && ( // Show on the cart page
+            <button onClick={() => onToggleCart(product, false)}>
+              Remove from Cart
+            </button>
+          )}
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+// Products.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ProductCard from "./ProductCard";
@@ -34,7 +35,6 @@ const Products = ({ addToCart, loggedInUser, cartItems, removeFromCart }) => {
 
   const handleFilterByPrice = (e) => {
     const selectedPriceRange = e.target.value;
-
     setSelectedPriceRange(selectedPriceRange);
 
     const filteredByPrice = filterProductsByPrice(selectedPriceRange);
@@ -48,7 +48,6 @@ const Products = ({ addToCart, loggedInUser, cartItems, removeFromCart }) => {
 
   const handleFilterByCategory = (e) => {
     const selectedCategory = e.target.value;
-
     setSelectedCategory(selectedCategory);
 
     const filteredByCategory = filterProductsByCategory(selectedCategory);
@@ -93,9 +92,22 @@ const Products = ({ addToCart, loggedInUser, cartItems, removeFromCart }) => {
     setFilteredProducts(filtered);
   };
 
-  const handleToggleCart = (product) => {
+  const handleToggleCart = (product, addToCartFlag) => {
     if (loggedInUser) {
-      addToCart(product);
+      if (addToCartFlag) {
+        // Check if the item is already in the cart
+        const isAlreadyInCart = cartItems.some(
+          (item) => item.id === product.id
+        );
+
+        if (!isAlreadyInCart) {
+          addToCart(product);
+        } else {
+          console.log("Item is already in the cart.");
+        }
+      } else {
+        removeFromCart(product.id);
+      }
     } else {
       console.log(
         "User is not logged in. Please log in to add items to the cart."
@@ -120,11 +132,10 @@ const Products = ({ addToCart, loggedInUser, cartItems, removeFromCart }) => {
           <ProductCard
             key={product.id}
             product={product}
-            showDetailsButton
             inCart={cartItems.some((item) => item.id === product.id)}
-            onToggleCart={handleToggleCart}
-            loggedInUser={loggedInUser}
-            removeFromCart={removeFromCart} // Pass removeFromCart here
+            onToggleCart={(addToCartFlag) =>
+              handleToggleCart(product, addToCartFlag)
+            }
           />
         ))}
       </div>
