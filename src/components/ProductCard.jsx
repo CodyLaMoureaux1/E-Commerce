@@ -1,5 +1,3 @@
-// ProductCard.jsx
-
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -9,8 +7,15 @@ const ProductCard = ({
   inCart,
   onToggleCart,
   loggedInUser,
+  removeFromCart,
 }) => {
   const { id, title, price, image, description, category, rating } = product;
+
+  const handleRemoveFromCart = () => {
+    if (removeFromCart) {
+      removeFromCart(id);
+    }
+  };
 
   return (
     <div className="product-card" key={id}>
@@ -23,11 +28,17 @@ const ProductCard = ({
             <button>See Details</button>
           </Link>
         )}
+
         {loggedInUser && (
-          <button onClick={() => onToggleCart(product)}>
-            {inCart ? "Remove from Cart" : "Add to Cart"}
-          </button>
+          <>
+            {inCart ? (
+              <button onClick={handleRemoveFromCart}>Remove from Cart</button>
+            ) : (
+              <button onClick={() => onToggleCart(product)}>Add to Cart</button>
+            )}
+          </>
         )}
+
         {!showDetailsButton && !onToggleCart && (
           <>
             <p>Description: {description}</p>

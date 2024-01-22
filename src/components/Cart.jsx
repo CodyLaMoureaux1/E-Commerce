@@ -1,9 +1,12 @@
-// Cart.jsx
-
 import React from "react";
 import ProductCard from "./ProductCard";
 
 const Cart = ({ cartItems, removeFromCart, loggedInUser }) => {
+  const handleRemoveFromCart = (productId) => {
+    // Add logic to remove item from cart
+    removeFromCart(productId);
+  };
+
   return (
     <div className="container1">
       <h2 className="products">Shopping Cart</h2>
@@ -13,8 +16,9 @@ const Cart = ({ cartItems, removeFromCart, loggedInUser }) => {
             key={product.id}
             product={product}
             inCart
-            onToggleCart={() => removeFromCart(product.id)}
+            onToggleCart={() => handleRemoveFromCart(product.id)}
             loggedInUser={loggedInUser}
+            removeFromCart={removeFromCart}
           />
         ))}
       </div>

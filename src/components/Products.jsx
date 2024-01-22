@@ -1,11 +1,9 @@
-// Products.jsx
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ProductCard from "./ProductCard";
 import SearchBar from "./SearchBar";
 
-const Products = ({ addToCart, loggedInUser, cartItems }) => {
+const Products = ({ addToCart, loggedInUser, cartItems, removeFromCart }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -126,6 +124,7 @@ const Products = ({ addToCart, loggedInUser, cartItems }) => {
             inCart={cartItems.some((item) => item.id === product.id)}
             onToggleCart={handleToggleCart}
             loggedInUser={loggedInUser}
+            removeFromCart={removeFromCart} // Pass removeFromCart here
           />
         ))}
       </div>
