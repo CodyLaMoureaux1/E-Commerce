@@ -4,7 +4,13 @@ import axios from "axios";
 import ProductCard from "./ProductCard";
 import SearchBar from "./SearchBar";
 
-const Products = ({ addToCart, loggedInUser, cartItems, removeFromCart }) => {
+const Products = ({
+  addToCart,
+  loggedInUser,
+  cartItems,
+  removeFromCart,
+  updateCartState,
+}) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -114,6 +120,24 @@ const Products = ({ addToCart, loggedInUser, cartItems, removeFromCart }) => {
     }
   };
 
+  const handleCheckout = () => {
+    updateCartState([]); // Use updateCartState instead of setCartItems
+    removeFromCartAll(); // Add a new function to remove all items
+  };
+
+  const removeFromCartAll = () => {
+    cartItems.forEach((product) => {
+      removeFromCart(product.id);
+    });
+  };
+
+  const calculateTotalCost = () => {
+    return cartItems.reduce((total, product) => {
+      const productQuantity = product.quantity || 1;
+      return total + product.price * productQuantity;
+    }, 0);
+  };
+
   return (
     <div className="container1">
       <h2 className="products">Products</h2>
@@ -137,6 +161,14 @@ const Products = ({ addToCart, loggedInUser, cartItems, removeFromCart }) => {
             }
           />
         ))}
+      </div>
+      <div className="checkout-section">
+        <button className="checkout-button" onClick={handleCheckout}>
+          Checkout
+        </button>
+        <p className="total-cost">
+          Total Cost: ${calculateTotalCost().toFixed(2)}
+        </p>
       </div>
     </div>
   );

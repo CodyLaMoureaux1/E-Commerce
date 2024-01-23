@@ -52,6 +52,7 @@ const App = () => {
               <Cart
                 cartItems={cartItems}
                 loggedInUser={loggedInUser}
+                setCartItems={setCartItems} // Pass setCartItems here
                 removeFromCart={removeFromCart}
               />
             }

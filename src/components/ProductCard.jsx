@@ -19,11 +19,16 @@ const ProductCard = ({ product, inCart, onToggleCart, updateQuantity }) => {
     updateQuantity(newQuantity);
   };
 
+  // Function to truncate the title
+  const truncateTitle = (title, maxLength) => {
+    return title.length > maxLength ? title.slice(0, maxLength) + "..." : title;
+  };
+
   return (
     <div className="product-card" key={id}>
       <img src={image} alt={title} />
       <div className="product-details">
-        <h3>{title}</h3>
+        <h3>{truncateTitle(title, 20)}</h3>
         <p>${price}</p>
         <Link to={`/product/${id}`}>
           <button>See Details</button>
@@ -31,12 +36,14 @@ const ProductCard = ({ product, inCart, onToggleCart, updateQuantity }) => {
         {location.pathname === "/cart" && (
           <>
             <button onClick={handleRemoveFromCart}>Remove from Cart</button>
+            <span>Quantity:</span>
             <select
+              className="quantity-adjuster"
               value={quantity}
               onChange={handleQuantityChange}
               disabled={!inCart}
             >
-              {[0, 1, 2, 3, 4, 5].map((quantity) => (
+              {[1, 2, 3, 4, 5].map((quantity) => (
                 <option key={quantity} value={quantity}>
                   {quantity}
                 </option>

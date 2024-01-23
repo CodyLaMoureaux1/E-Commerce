@@ -1,4 +1,3 @@
-// Cart.js
 import React, { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
 
@@ -21,8 +20,15 @@ const Cart = ({ cartItems, removeFromCart, loggedInUser, setCartItems }) => {
   };
 
   const handleCheckout = () => {
-    setUpdatedCart([]);
-    setCartItems([]);
+    // Assuming removeFromCart removes all items from the cart
+    setCartItems([]); // Reset the cart
+  };
+
+  const calculateTotalCost = () => {
+    return updatedCart.reduce((total, product) => {
+      const productQuantity = product.quantity || 1;
+      return total + product.price * productQuantity;
+    }, 0);
   };
 
   return (
@@ -43,8 +49,13 @@ const Cart = ({ cartItems, removeFromCart, loggedInUser, setCartItems }) => {
           />
         ))}
       </div>
-      <div>
-        <button onClick={handleCheckout}>Checkout</button>
+      <div className="checkout-section">
+        <button className="checkout-button" onClick={handleCheckout}>
+          Checkout
+        </button>
+        <p className="total-cost">
+          Total Cost: ${calculateTotalCost().toFixed(2)}
+        </p>
       </div>
     </div>
   );
