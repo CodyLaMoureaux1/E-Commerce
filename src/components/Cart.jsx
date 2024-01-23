@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const Cart = ({ cartItems, removeFromCart, loggedInUser, setCartItems }) => {
+const Cart = ({ cartItems, removeFromCart, setCartItems }) => {
   const [updatedCart, setUpdatedCart] = useState([]);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     setUpdatedCart(cartItems);
@@ -20,8 +23,9 @@ const Cart = ({ cartItems, removeFromCart, loggedInUser, setCartItems }) => {
   };
 
   const handleCheckout = () => {
-    // Assuming removeFromCart removes all items from the cart
-    setCartItems([]); // Reset the cart
+    setUpdatedCart([]);
+    setCartItems([]);
+    navigate("/");
   };
 
   const calculateTotalCost = () => {
@@ -41,7 +45,6 @@ const Cart = ({ cartItems, removeFromCart, loggedInUser, setCartItems }) => {
             product={product}
             inCart
             onToggleCart={() => handleRemoveFromCart(product.id)}
-            loggedInUser={loggedInUser}
             removeFromCart={removeFromCart}
             updateQuantity={(newQuantity) =>
               handleUpdateQuantity(product.id, newQuantity)
@@ -49,14 +52,18 @@ const Cart = ({ cartItems, removeFromCart, loggedInUser, setCartItems }) => {
           />
         ))}
       </div>
-      <div className="checkout-section">
-        <button className="checkout-button" onClick={handleCheckout}>
-          Checkout
-        </button>
-        <p className="total-cost">
-          Total Cost: ${calculateTotalCost().toFixed(2)}
-        </p>
-      </div>
+      {location.pathname === "/cart" && (
+        <div className="checkout-section">
+          {navigate && (
+            <button className="checkout-button" onClick={handleCheckout}>
+              Checkout
+            </button>
+          )}
+          <p className="total-cost">
+            Total Cost: ${calculateTotalCost().toFixed(2)}
+          </p>
+        </div>
+      )}
     </div>
   );
 };

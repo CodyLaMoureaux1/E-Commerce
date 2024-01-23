@@ -162,14 +162,7 @@ const Products = ({
           />
         ))}
       </div>
-      <div className="checkout-section">
-        <button className="checkout-button" onClick={handleCheckout}>
-          Checkout
-        </button>
-        <p className="total-cost">
-          Total Cost: ${calculateTotalCost().toFixed(2)}
-        </p>
-      </div>
+      <div className="checkout-section"></div>
     </div>
   );
 };
