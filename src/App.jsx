@@ -30,7 +30,7 @@ const App = () => {
     setCartItems(updatedCart);
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
   };
-
+  console.log("app component rerendering");
   return (
     <Router>
       <>

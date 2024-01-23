@@ -3,25 +3,24 @@ import ProductCard from "./ProductCard";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Cart = ({ cartItems, removeFromCart, setCartItems }) => {
-  const [updatedCart, setUpdatedCart] = useState(cartItems);
+  const [updatedCart, setUpdatedCart] = useState([cartItems]);
   const [totalCost, setTotalCost] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("rendercomponent");
   console.log(updatedCart);
-
   useEffect(() => {
     const storedCartItems = JSON.parse(localStorage.getItem("cartItems"));
     if (storedCartItems) {
       console.log(storedCartItems);
       setUpdatedCart(storedCartItems);
+      setCartItems(storedCartItems);
     } else {
       setUpdatedCart([]);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    // localStorage.setItem("cartItems", JSON.stringify(cartItems));
     setUpdatedCart(cartItems);
 
     const newTotalCost = calculateTotalCost(cartItems);

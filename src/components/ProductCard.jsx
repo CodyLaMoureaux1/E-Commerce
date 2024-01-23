@@ -19,7 +19,9 @@ const ProductCard = ({ product, inCart, onToggleCart, updateQuantity }) => {
   };
 
   const truncateTitle = (title, maxLength) => {
-    return title.length > maxLength ? title.slice(0, maxLength) + "..." : title;
+    return title?.length > maxLength
+      ? title.slice(0, maxLength) + "..."
+      : title;
   };
 
   return (
