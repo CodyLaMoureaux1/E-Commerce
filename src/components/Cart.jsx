@@ -21,11 +21,6 @@ const Cart = ({ cartItems, removeFromCart, setCartItems }) => {
   }, []);
 
   useEffect(() => {
-    // const storedCartItems = JSON.parse(localStorage.getItem("cartItems"));
-    // if (cartItems.length) {
-    //   localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    //   setUpdatedCart(cartItems);
-    // }
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     setUpdatedCart(cartItems);
 
@@ -48,9 +43,10 @@ const Cart = ({ cartItems, removeFromCart, setCartItems }) => {
   };
 
   const handleCheckout = () => {
+    localStorage.removeItem("cartItems");
     setUpdatedCart([]);
     setCartItems([]);
-    navigate("/");
+    navigate("/thankyou-page");
   };
 
   const calculateTotalCost = (items) => {

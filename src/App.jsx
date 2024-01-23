@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import "./App.css";
 import Nav from "./components/Nav";
 import Cart from "./components/Cart";
+import ThankYouPage from "./components/ThankYouPage"; // Import ThankYouPage
 
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -27,7 +28,6 @@ const App = () => {
   const removeFromCart = (productId) => {
     const updatedCart = cartItems.filter((item) => item.id !== productId);
     setCartItems(updatedCart);
-    console.log(updatedCart);
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
   };
 
@@ -68,6 +68,7 @@ const App = () => {
               />
             }
           />
+          <Route path="/thankyou-page" element={<ThankYouPage />} />
         </Routes>
       </>
     </Router>
