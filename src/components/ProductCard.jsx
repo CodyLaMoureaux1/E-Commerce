@@ -1,4 +1,3 @@
-// ProductCard.js
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -19,7 +18,6 @@ const ProductCard = ({ product, inCart, onToggleCart, updateQuantity }) => {
     updateQuantity(newQuantity);
   };
 
-  // Function to truncate the title
   const truncateTitle = (title, maxLength) => {
     return title.length > maxLength ? title.slice(0, maxLength) + "..." : title;
   };

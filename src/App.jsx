@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Products from "../src/components/products";
 import SingleProduct from "./components/SingleProduct";
@@ -11,13 +11,24 @@ const App = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
 
+  useEffect(() => {
+    const localUser = localStorage.getItem("loggedInUser");
+    if (localUser) {
+      setLoggedInUser(JSON.parse(localUser));
+    }
+  }, []);
+
   const addToCart = (product) => {
-    setCartItems([...cartItems, product]);
+    const newCart = [...cartItems, product];
+    setCartItems(newCart);
+    localStorage.setItem("cartItems", JSON.stringify(newCart));
   };
 
   const removeFromCart = (productId) => {
     const updatedCart = cartItems.filter((item) => item.id !== productId);
     setCartItems(updatedCart);
+    console.log(updatedCart);
+    localStorage.setItem("cartItems", JSON.stringify(updatedCart));
   };
 
   return (

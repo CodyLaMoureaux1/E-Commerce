@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Cookies from "universal-cookie";
 
 const Login = ({ setLoggedInUser }) => {
   const [formData, setFormData] = useState({
@@ -10,19 +9,14 @@ const Login = ({ setLoggedInUser }) => {
 
   const [loginSuccess, setLoginSuccess] = useState(false);
   const navigate = useNavigate();
-  const cookies = new Cookies();
 
   useEffect(() => {
-    const checkLoginStatus = async () => {
-      const loggedInUser = cookies.get("loggedInUser");
-      if (loggedInUser && !loginSuccess) {
-        setLoggedInUser(loggedInUser);
-        setLoginSuccess(true);
-      }
-    };
-
-    checkLoginStatus();
-  }, [setLoggedInUser, loginSuccess, cookies]);
+    const storedToken = sessionStorage.getItem("jwtToken");
+    if (storedToken) {
+      // You may want to decode the token and check its expiration here
+      setLoginSuccess(true);
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -43,11 +37,16 @@ const Login = ({ setLoggedInUser }) => {
         console.log("JWT:", token);
         console.log("Login successful");
 
+        // Save the token in sessionStorage
+        // sessionStorage.setItem("jwtToken", token);
+        localStorage.setItem("jwtToken", token);
+
         const loggedInUser = {
           username: formData.username,
         };
 
-        cookies.set("loggedInUser", loggedInUser, { path: "/", maxAge: 600 });
+        // sessionStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+        localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
         setLoggedInUser(loggedInUser);
         setLoginSuccess(true);
 
@@ -63,7 +62,8 @@ const Login = ({ setLoggedInUser }) => {
   };
 
   const resetLoginSuccess = () => {
-    cookies.remove("loggedInUser");
+    // sessionStorage.removeItem("loggedInUser");
+    localStorage.removeItem("loggedInUser");
     setLoginSuccess(false);
   };
 
@@ -88,7 +88,7 @@ const Login = ({ setLoggedInUser }) => {
         </form>
         {loginSuccess && (
           <p className="success-message" onClick={resetLoginSuccess}>
-            Login Successful! Returning to home...
+            Login Successful!
           </p>
         )}
         <p>

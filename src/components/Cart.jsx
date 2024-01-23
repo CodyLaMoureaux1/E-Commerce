@@ -3,12 +3,34 @@ import ProductCard from "./ProductCard";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Cart = ({ cartItems, removeFromCart, setCartItems }) => {
-  const [updatedCart, setUpdatedCart] = useState([]);
+  const [updatedCart, setUpdatedCart] = useState(cartItems);
+  const [totalCost, setTotalCost] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
+  console.log("rendercomponent");
+  console.log(updatedCart);
 
   useEffect(() => {
+    const storedCartItems = JSON.parse(localStorage.getItem("cartItems"));
+    if (storedCartItems) {
+      console.log(storedCartItems);
+      setUpdatedCart(storedCartItems);
+    } else {
+      setUpdatedCart([]);
+    }
+  }, []);
+
+  useEffect(() => {
+    // const storedCartItems = JSON.parse(localStorage.getItem("cartItems"));
+    // if (cartItems.length) {
+    //   localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    //   setUpdatedCart(cartItems);
+    // }
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
     setUpdatedCart(cartItems);
+
+    const newTotalCost = calculateTotalCost(cartItems);
+    setTotalCost(newTotalCost);
   }, [cartItems]);
 
   const handleRemoveFromCart = (productId) => {
@@ -20,6 +42,9 @@ const Cart = ({ cartItems, removeFromCart, setCartItems }) => {
       item.id === productId ? { ...item, quantity: newQuantity } : item
     );
     setUpdatedCart(updated);
+
+    const newTotalCost = calculateTotalCost(updated);
+    setTotalCost(newTotalCost);
   };
 
   const handleCheckout = () => {
@@ -28,8 +53,8 @@ const Cart = ({ cartItems, removeFromCart, setCartItems }) => {
     navigate("/");
   };
 
-  const calculateTotalCost = () => {
-    return updatedCart.reduce((total, product) => {
+  const calculateTotalCost = (items) => {
+    return items.reduce((total, product) => {
       const productQuantity = product.quantity || 1;
       return total + product.price * productQuantity;
     }, 0);
@@ -54,14 +79,10 @@ const Cart = ({ cartItems, removeFromCart, setCartItems }) => {
       </div>
       {location.pathname === "/cart" && (
         <div className="checkout-section">
-          {navigate && (
-            <button className="checkout-button" onClick={handleCheckout}>
-              Checkout
-            </button>
-          )}
-          <p className="total-cost">
-            Total Cost: ${calculateTotalCost().toFixed(2)}
-          </p>
+          <button className="checkout-button" onClick={handleCheckout}>
+            Checkout
+          </button>
+          <p className="total-cost">Total Cost: ${totalCost.toFixed(2)}</p>
         </div>
       )}
     </div>
