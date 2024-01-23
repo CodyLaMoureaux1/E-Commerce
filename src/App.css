@@ -438,3 +438,19 @@ body {
   margin-bottom: 10px;
   font-weight: bold;
 }
+
+
+
+.thank-you-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.thank-you-message {
+  text-align: center;
+  font-size: 66px;
+  color: #333; 
+  
+}
